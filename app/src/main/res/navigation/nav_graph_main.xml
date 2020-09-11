@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/leaderBoardFragment">
+
+    <fragment
+        android:id="@+id/leaderBoardFragment"
+        android:name="com.sample.gadleaderboard.ui.fragment.leaderBoard.LeaderBoardFragment"
+        android:label="leader_board_fragment"
+        tools:layout="@layout/leader_board_fragment" >
+        <action
+            android:id="@+id/action_leaderBoardFragment_to_formSubmissionFragment"
+            app:destination="@id/formSubmissionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formSubmissionFragment"
+        android:name="com.sample.gadleaderboard.ui.fragment.formSubmission.FormSubmissionFragment"
+        android:label="form_submission_fragment"
+        tools:layout="@layout/form_submission_fragment" />
+</navigation>
