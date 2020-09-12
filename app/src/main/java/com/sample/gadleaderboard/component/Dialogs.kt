@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.sample.gadleaderboard.R
 import com.sample.gadleaderboard.model.ApiService
@@ -22,13 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class ConfirmDialog(context: Context) : DialogFragment() {
-//    init {
-//        requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        setContentView(R.layout.confirm_dialog)
-//        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//        setCancelable(false)
-//        setCanceledOnTouchOutside(false)
-//    }
 
     private lateinit var formData: FormData
 
@@ -48,16 +42,17 @@ class ConfirmDialog(context: Context) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(ApiService.FORM_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val api = retrofit.create(ApiService::class.java)
+
         dialogCancel.setOnClickListener {
             dismiss()
         }
 
         dialogConfirm.setOnClickListener {
-            val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl(ApiService.FORM_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-            val api = retrofit.create(ApiService::class.java)
             api.submitFormRequest(
                 firstName = formData.firstName,
                 emailAddress = formData.lastName,
@@ -65,9 +60,14 @@ class ConfirmDialog(context: Context) : DialogFragment() {
                 projectLink = formData.projectLink
             ).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.code() == 200) {
+                    if (response.code() >= 200) {
                         // show success dialog
                         dismiss()
+                        Toast.makeText(
+                            requireContext(),
+                            response.code().toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         SuccessDialog(requireContext()).show()
                     } else {
                         //show fail dialog

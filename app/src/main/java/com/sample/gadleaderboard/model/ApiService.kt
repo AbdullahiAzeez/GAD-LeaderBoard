@@ -15,7 +15,7 @@ interface ApiService {
     @GET("/api/skilliq")
     fun getSkillLeaders(): Call<List<SkillLeader>>
 
-    @POST("/1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse")
+    @POST("1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse")
     @FormUrlEncoded
     fun submitFormRequest(
         @Field("entry.1877115667") firstName: String,
@@ -26,6 +26,6 @@ interface ApiService {
 
     companion object {
         const val BASE_URL: String = " https://gadsapi.herokuapp.com"
-        const val FORM_BASE_URL: String = "https://docs.google.com/forms/d/e"
+        const val FORM_BASE_URL: String = "https://docs.google.com/forms/d/e/"
     }
 }
