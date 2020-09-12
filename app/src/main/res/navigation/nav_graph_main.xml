@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/leaderBoardFragment"
         android:name="com.sample.gadleaderboard.ui.fragment.leaderBoard.LeaderBoardFragment"
-        android:label="leader_board_fragment"
+        android:label="@string/app_name"
         tools:layout="@layout/leader_board_fragment" >
         <action
             android:id="@+id/action_leaderBoardFragment_to_formSubmissionFragment"
